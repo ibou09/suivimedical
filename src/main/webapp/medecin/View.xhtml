@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MedecinViewDlg" widgetVar="MedecinViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMedecinTitle}">
+            <h:form id="MedecinViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{medecinController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMedecinLabel_idMedecin}"/>
+                        <h:outputText value="#{medecinController.selected.idMedecin}" title="#{bundle.ViewMedecinTitle_idMedecin}"/>
+                        <h:outputText value="#{bundle.ViewMedecinLabel_nom}"/>
+                        <h:outputText value="#{medecinController.selected.nom}" title="#{bundle.ViewMedecinTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewMedecinLabel_prenom}"/>
+                        <h:outputText value="#{medecinController.selected.prenom}" title="#{bundle.ViewMedecinTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewMedecinLabel_fonction}"/>
+                        <h:outputText value="#{medecinController.selected.fonction}" title="#{bundle.ViewMedecinTitle_fonction}"/>
+                        <h:outputText value="#{bundle.ViewMedecinLabel_grade}"/>
+                        <h:outputText value="#{medecinController.selected.grade}" title="#{bundle.ViewMedecinTitle_grade}"/>
+                        <h:outputText value="#{bundle.ViewMedecinLabel_datenaiss}"/>
+                        <h:outputText value="#{medecinController.selected.datenaiss}" title="#{bundle.ViewMedecinTitle_datenaiss}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMedecinLabel_tel}"/>
+                        <h:outputText value="#{medecinController.selected.tel}" title="#{bundle.ViewMedecinTitle_tel}"/>
+                        <h:outputText value="#{bundle.ViewMedecinLabel_email}"/>
+                        <h:outputText value="#{medecinController.selected.email}" title="#{bundle.ViewMedecinTitle_email}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MedecinViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

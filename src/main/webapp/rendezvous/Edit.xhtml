@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RendezvousEditDlg" widgetVar="RendezvousEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRendezvousTitle}">
+            <h:form id="RendezvousEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rendezvousController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRendezvousLabel_idRdv}" for="idRdv" />
+                        <p:inputText id="idRdv" value="#{rendezvousController.selected.idRdv}" title="#{bundle.EditRendezvousTitle_idRdv}" required="true" requiredMessage="#{bundle.EditRendezvousRequiredMessage_idRdv}"/>
+                        <p:outputLabel value="#{bundle.EditRendezvousLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{rendezvousController.selected.date}" title="#{bundle.EditRendezvousTitle_date}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRendezvousLabel_idMedecin}" for="idMedecin" />
+                        <p:selectOneMenu id="idMedecin" value="#{rendezvousController.selected.idMedecin}" required="true" requiredMessage="#{bundle.EditRendezvousRequiredMessage_idMedecin}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="idMedecinItem"
+                                           itemValue="#{idMedecinItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRendezvousLabel_idPatient}" for="idPatient" />
+                        <p:selectOneMenu id="idPatient" value="#{rendezvousController.selected.idPatient}" required="true" requiredMessage="#{bundle.EditRendezvousRequiredMessage_idPatient}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="idPatientItem"
+                                           itemValue="#{idPatientItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rendezvousController.update}" value="#{bundle.Save}" update="display,:RendezvousListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RendezvousEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RendezvousEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

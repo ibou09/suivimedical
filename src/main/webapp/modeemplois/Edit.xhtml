@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ModeemploisEditDlg" widgetVar="ModeemploisEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditModeemploisTitle}">
+            <h:form id="ModeemploisEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{modeemploisController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditModeemploisLabel_idEmp}" for="idEmp" />
+                        <p:inputText id="idEmp" value="#{modeemploisController.selected.idEmp}" title="#{bundle.EditModeemploisTitle_idEmp}" required="true" requiredMessage="#{bundle.EditModeemploisRequiredMessage_idEmp}"/>
+                        <p:outputLabel value="#{bundle.EditModeemploisLabel_frequence}" for="frequence" />
+                        <p:inputText id="frequence" value="#{modeemploisController.selected.frequence}" title="#{bundle.EditModeemploisTitle_frequence}" />
+                        <p:outputLabel value="#{bundle.EditModeemploisLabel_dose}" for="dose" />
+                        <p:inputText id="dose" value="#{modeemploisController.selected.dose}" title="#{bundle.EditModeemploisTitle_dose}" />
+                        <p:outputLabel value="#{bundle.EditModeemploisLabel_idMed}" for="idMed" />
+                        <p:selectOneMenu id="idMed" value="#{modeemploisController.selected.idMed}" required="true" requiredMessage="#{bundle.EditModeemploisRequiredMessage_idMed}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{medicamentController.itemsAvailableSelectOne}"
+                                           var="idMedItem"
+                                           itemValue="#{idMedItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditModeemploisLabel_idOrdonnance}" for="idOrdonnance" />
+                        <p:selectOneMenu id="idOrdonnance" value="#{modeemploisController.selected.idOrdonnance}" required="true" requiredMessage="#{bundle.EditModeemploisRequiredMessage_idOrdonnance}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ordonnanceController.itemsAvailableSelectOne}"
+                                           var="idOrdonnanceItem"
+                                           itemValue="#{idOrdonnanceItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{modeemploisController.update}" value="#{bundle.Save}" update="display,:ModeemploisListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ModeemploisEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ModeemploisEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

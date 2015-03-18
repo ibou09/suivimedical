@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RenseignementEditDlg" widgetVar="RenseignementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRenseignementTitle}">
+            <h:form id="RenseignementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{renseignementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRenseignementLabel_valeur}" for="valeur" />
+                        <p:inputText id="valeur" value="#{renseignementController.selected.valeur}" title="#{bundle.EditRenseignementTitle_valeur}" required="true" requiredMessage="#{bundle.EditRenseignementRequiredMessage_valeur}"/>
+                        <p:outputLabel value="#{bundle.EditRenseignementLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy" value="#{renseignementController.selected.date}" title="#{bundle.EditRenseignementTitle_date}" required="true" requiredMessage="#{bundle.EditRenseignementRequiredMessage_date}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRenseignementLabel_indicateur}" for="indicateur" />
+                        <p:selectOneMenu id="indicateur" value="#{renseignementController.selected.indicateur}" required="true" requiredMessage="#{bundle.EditRenseignementRequiredMessage_indicateur}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{indicateurController.itemsAvailableSelectOne}"
+                                           var="indicateurItem"
+                                           itemValue="#{indicateurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRenseignementLabel_maladie}" for="maladie" />
+                        <p:selectOneMenu id="maladie" value="#{renseignementController.selected.maladie}" required="true" requiredMessage="#{bundle.EditRenseignementRequiredMessage_maladie}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{maladieController.itemsAvailableSelectOne}"
+                                           var="maladieItem"
+                                           itemValue="#{maladieItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRenseignementLabel_patient}" for="patient" />
+                        <p:selectOneMenu id="patient" value="#{renseignementController.selected.patient}" required="true" requiredMessage="#{bundle.EditRenseignementRequiredMessage_patient}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="patientItem"
+                                           itemValue="#{patientItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{renseignementController.update}" value="#{bundle.Save}" update="display,:RenseignementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RenseignementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RenseignementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
